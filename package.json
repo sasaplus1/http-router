@@ -1,0 +1,13 @@
+{
+  "name": "http-router",
+  "version": "0.0.0",
+  "author": "sasa+1 <sasaplus1@gmail.com>",
+  "description": "router module for node.js",
+  "main": "./index.js",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sasaplus1/http-router.git"
+  }
+}
