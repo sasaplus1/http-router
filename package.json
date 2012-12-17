@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "chai": "~1.4",
-    "mocha": "~1.7"
+    "mocha": "~1.7",
+    "sinon": "~1.5"
   }
 }
