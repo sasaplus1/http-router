@@ -65,6 +65,8 @@ $ npm test
 * `req` http.ServerRequest - http server request object
 * `res` http.ServerResponse - http server response object
 
+* `return` boolean - return false if never called callback function.
+
 call added HTTP method callback functions.
 
 ### get/post/put/delete/options/trace/connect/patch(path, cb)

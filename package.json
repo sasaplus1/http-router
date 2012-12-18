@@ -1,6 +1,6 @@
 {
   "name": "http-router",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "sasa+1 <sasaplus1@gmail.com>",
   "description": "router module for node.js",
   "main": "./index.js",
