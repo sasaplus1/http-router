@@ -109,4 +109,19 @@ suite('http-routerのテスト', function() {
     assert.isFalse(spy2.called, 'trace2() is not called');
   });
 
+  test('一致しない関数が呼ばれないこと', function() {
+    var methods = { connect1: function(req, res, next) {} },
+        mock = sinon.mock(methods);
+
+    mock.expects('connect1').never();
+
+    assert.isFalse(
+      routes
+        .connect('/', methods.connect1)
+        .route({ method: 'CONNECT', url: '/connect' }, {}),
+        'route() return false');
+
+    assert.isTrue(mock.verify(), 'connect1() is never called');
+  });
+
 });
