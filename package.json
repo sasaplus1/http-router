@@ -1,6 +1,6 @@
 {
   "name": "http-router",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "sasa+1 <sasaplus1@gmail.com>",
   "description": "router module for node.js",
   "main": "./index.js",
@@ -11,6 +11,7 @@
     "url": "https://github.com/sasaplus1/http-router.git"
   },
   "scripts": {
+    "lint": "gjslint --strict --nojsdoc -r ./lib",
     "test": "./node_modules/.bin/mocha"
   },
   "devDependencies": {

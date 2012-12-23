@@ -24,7 +24,7 @@ suite('http-routerのテスト', function() {
       routes
         .get('/', methods.get1)
         .route({ method: 'GET', url: '/' }, {}),
-        'route() return true');
+        'route() returns true');
 
     assert.isTrue(mock.verify(), 'get1() is called once');
   });
@@ -44,7 +44,7 @@ suite('http-routerのテスト', function() {
         .post('/post', methods.post2)
         .post('/post', methods.post3)
         .route({ method: 'POST', url: '/post' }, {}),
-        'route() return true');
+        'route() returns true');
 
     assert.isTrue(spy1.called, 'post1() is called');
     assert.isTrue(spy2.calledAfter(spy1), 'post2() called after post1()');
@@ -66,7 +66,7 @@ suite('http-routerのテスト', function() {
         .put('/2', methods.put2)
         .put('/3', methods.put3)
         .route({ method: 'PUT', url: '/3'}, {}),
-        'route() return true');
+        'route() returns true');
 
     assert.isFalse(spy1.called, 'put1() is not called');
     assert.isFalse(spy2.called, 'put2() is not called');
@@ -85,7 +85,7 @@ suite('http-routerのテスト', function() {
         .delete('/delete', methods.delete1)
         .options('/options', methods.options1)
         .route({ method: 'OPTIONS', url: '/options' }, {}),
-        'route() return true');
+        'route() returns true');
 
     assert.isFalse(spy1.called, 'delete1() is not called');
     assert.isTrue(spy2.called, 'options1() is called');
@@ -103,7 +103,7 @@ suite('http-routerのテスト', function() {
         .trace('/trace', methods.trace1)
         .trace('/trace', methods.trace2)
         .route({ method: 'TRACE', url: '/trace' }, {}),
-        'route() return true');
+        'route() returns true');
 
     assert.isTrue(spy1.called, 'trace1() is called');
     assert.isFalse(spy2.called, 'trace2() is not called');
@@ -119,9 +119,39 @@ suite('http-routerのテスト', function() {
       routes
         .connect('/', methods.connect1)
         .route({ method: 'CONNECT', url: '/connect' }, {}),
-        'route() return false');
+        'route() returns false');
 
     assert.isTrue(mock.verify(), 'connect1() is never called');
+  });
+
+  test('ハンドラが一致しない場合パスなしハンドラが呼ばれること', function() {
+    var methods = {
+      patch1: function(req, res, next) { return next(); },
+      patch2: function(req, res, next) { return next(); },
+      patch3: function(req, res, next) { return next(); },
+      patch4: function(req, res, next) { return next(); },
+      patch5: function(req, res, next) { return next(); },
+    }, spy1 = sinon.spy(methods, 'patch1'),
+       spy2 = sinon.spy(methods, 'patch2'),
+       spy3 = sinon.spy(methods, 'patch3'),
+       spy4 = sinon.spy(methods, 'patch4'),
+       spy5 = sinon.spy(methods, 'patch5');
+
+    assert.isFalse(
+      routes
+        .patch('/patch', methods.patch1)
+        .patch('/patch', methods.patch2)
+        .patch('/patch', methods.patch3)
+        .patch(methods.patch4)
+        .patch(methods.patch5)
+        .route({ method: 'PATCH', url: '/' }, {}),
+        'route() returns false');
+
+    assert.isFalse(spy1.called, 'patch1 is not called');
+    assert.isFalse(spy2.called, 'patch2 is not called');
+    assert.isFalse(spy3.called, 'patch3 is not called');
+    assert.isTrue(spy4.called, 'patch4 is called');
+    assert.isTrue(spy5.called, 'patch5 is called');
   });
 
 });
