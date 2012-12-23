@@ -37,6 +37,13 @@ routes
   })
   .post('/', function(req, res, next) {
     res.end('!\n');
+  })
+  .get(function(req, res, next) {
+    res.writeHead(404);
+    return next();
+  })
+  .get(function(req, res, next) {
+    res.end(http.STATUS_CODES[404]);
   });
 
 http.createServer(function(req, res) {
@@ -49,6 +56,8 @@ $ curl -X GET http://localhost:3000
 Hello, World!
 $ curl -X POST http://localhost:3000
 POST!
+$ curl -X GET http://localhost:3000/unknown
+Not Found
 ```
 
 ## Test
@@ -65,21 +74,21 @@ $ npm test
 * `req` http.ServerRequest - http server request object
 * `res` http.ServerResponse - http server response object
 
-* `return` boolean - return false if never called callback function.
+* `return` boolean - return false if never called handler function.
 
-call added HTTP method callback functions.
+Call added HTTP method handler functions. Call handlers for no path if never called handler functions.
 
-### get/post/put/delete/options/trace/connect/patch(path, cb)
+### options/get/head/post/put/delete/trace/connect/patch([path], handler)
 
 * `path` string - request path
-* `cb` function(req, res, next) - callback function
+* `handler` function(req, res, next) - handler function
   * `req` http.ServerRequest - http server request object
   * `res` http.ServerResponse - http server response object
   * `next` function() - call next function
 
 * `return` HttpRouter - return this instance object.
 
-add HTTP method callback function.
+Add HTTP method handler function. Add as no path handler if handler parameter only.
 
 ## License
 
