@@ -124,4 +124,34 @@ suite('http-routerのテスト', function() {
     assert.isTrue(mock.verify(), 'connect1() is never called');
   });
 
+  test('ハンドラが一致しない場合パスなしハンドラが呼ばれること', function() {
+    var methods = {
+      patch1: function(req, res, next) { return next(); },
+      patch2: function(req, res, next) { return next(); },
+      patch3: function(req, res, next) { return next(); },
+      patch4: function(req, res, next) { return next(); },
+      patch5: function(req, res, next) { return next(); },
+    }, spy1 = sinon.spy(methods, 'patch1'),
+       spy2 = sinon.spy(methods, 'patch2'),
+       spy3 = sinon.spy(methods, 'patch3'),
+       spy4 = sinon.spy(methods, 'patch4'),
+       spy5 = sinon.spy(methods, 'patch5');
+
+    assert.isFalse(
+      routes
+        .patch('/patch', methods.patch1)
+        .patch('/patch', methods.patch2)
+        .patch('/patch', methods.patch3)
+        .patch(methods.patch4)
+        .patch(methods.patch5)
+        .route({ method: 'PATCH', url: '/' }, {}),
+        'route() returns false');
+
+    assert.isFalse(spy1.called, 'patch1 is not called');
+    assert.isFalse(spy2.called, 'patch2 is not called');
+    assert.isFalse(spy3.called, 'patch3 is not called');
+    assert.isTrue(spy4.called, 'patch4 is called');
+    assert.isTrue(spy5.called, 'patch5 is called');
+  });
+
 });
