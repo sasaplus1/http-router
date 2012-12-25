@@ -154,4 +154,17 @@ suite('http-routerのテスト', function() {
     assert.isTrue(spy5.called, 'patch5 is called');
   });
 
+  test('ハンドラがないメソッドが呼ばれても落ちないこと', function() {
+    var methods = { head1: function(req, res, next) {} },
+        spy = sinon.spy(methods, 'head1');
+
+    assert.isFalse(
+      routes
+        .head('/', methods.head1)
+        .route({ method: 'GET', url: '/' }, {}),
+        'route() returns false');
+
+    assert.isFalse(spy.called, 'head1() is not called');
+  });
+
 });
