@@ -38,6 +38,11 @@ routes
   .post('/', function(req, res, next) {
     res.end('!\n');
   })
+  .get('/:key1/:key2', function(req, res, next) {
+    res.write('key1: ' + req.params.key1 + '\n');
+    res.write('key2: ' + req.params.key2 + '\n');
+    res.end();
+  })
   .get(function(req, res, next) {
     res.writeHead(404);
     return next();
@@ -56,6 +61,9 @@ $ curl -X GET http://localhost:3000
 Hello, World!
 $ curl -X POST http://localhost:3000
 POST!
+$ curl -X GET http://localhost:3000/111/222
+key1: 111
+key2: 222
 $ curl -X GET http://localhost:3000/unknown
 Not Found
 ```
