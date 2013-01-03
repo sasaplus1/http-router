@@ -137,7 +137,7 @@ suite('http-routerのテスト', function() {
        spy4 = sinon.spy(methods, 'patch4'),
        spy5 = sinon.spy(methods, 'patch5');
 
-    assert.isFalse(
+    assert.isTrue(
       routes
         .patch('/patch', methods.patch1)
         .patch('/patch', methods.patch2)
@@ -145,7 +145,7 @@ suite('http-routerのテスト', function() {
         .patch(methods.patch4)
         .patch(methods.patch5)
         .route({ method: 'PATCH', url: '/' }, {}),
-        'route() returns false');
+        'route() returns true');
 
     assert.isFalse(spy1.called, 'patch1 is not called');
     assert.isFalse(spy2.called, 'patch2 is not called');
