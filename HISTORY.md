@@ -1,3 +1,7 @@
+# 0.4.0 / 2013-01-03
+
+  - can parse placeholder url
+
 # 0.3.1 / 2012-12-25
 
   - bug fix
