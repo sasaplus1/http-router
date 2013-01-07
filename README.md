@@ -52,7 +52,10 @@ routes
   });
 
 http.createServer(function(req, res) {
-  routes.route(req, res);
+  if (!routes.route(req, res)) {
+    res.writeHead(501);
+    res.end(http.STATUS_CODES[501]);
+  }
 }).listen(3000);
 ```
 
@@ -66,6 +69,8 @@ key1: 111
 key2: 222
 $ curl -X GET http://localhost:3000/unknown
 Not Found
+$ curl -X PATCH http://localhost:3000
+Not Implemented
 ```
 
 ## Test
