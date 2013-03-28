@@ -1,3 +1,9 @@
+# 0.4.1 / 2013-03-29
+
+  - added support node.js 0.10
+  - added unit test of route\_list
+  - fixed README.md
+
 # 0.4.0 / 2013-01-03
 
   - can parse placeholder url
