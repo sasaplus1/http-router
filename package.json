@@ -16,7 +16,7 @@
     "test": "NODE_ENV=test mocha"
   },
   "devDependencies": {
-    "chai": "~1.4",
+    "expect.js": "~0.2",
     "mocha": "~1.7",
     "sinon": "~1.5"
   }
