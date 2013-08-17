@@ -1,3 +1,8 @@
+# 0.4.2 / 2013-08-16
+
+  - refactored
+  - updated modules
+
 # 0.4.1 / 2013-03-29
 
   - added support node.js 0.10

@@ -1,6 +1,6 @@
 {
   "name": "http-router",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "author": "sasa+1 <sasaplus1@gmail.com>",
   "description": "router module for node.js",
   "main": "./index.js",
@@ -8,16 +8,16 @@
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sasaplus1/http-router.git"
+    "url": "git://github.com/sasaplus1/http-router.git"
   },
   "scripts": {
     "fix": "fixjsstyle --strict --nojsdoc -r ./lib -r ./test",
     "lint": "gjslint --strict --nojsdoc -r ./lib -r ./test",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha"
+    "test": "NODE_ENV=test mocha"
   },
   "devDependencies": {
-    "chai": "~1.4",
-    "mocha": "~1.7",
-    "sinon": "~1.5"
+    "expect.js": "~0.2",
+    "mocha": "~1.12",
+    "sinon": "~1.7"
   }
 }

@@ -1,4 +1,7 @@
-# http-router [![Build Status](https://travis-ci.org/sasaplus1/http-router.png)](https://travis-ci.org/sasaplus1/http-router)
+# http-router
+
+[![Build Status](https://travis-ci.org/sasaplus1/http-router.png)](https://travis-ci.org/sasaplus1/http-router)
+[![Dependency Status](https://gemnasium.com/sasaplus1/http-router.png)](https://gemnasium.com/sasaplus1/http-router)
 
 router module for node.js
 
@@ -13,30 +16,22 @@ $ npm install http-router
 ```js
 var http = require('http'),
     router = require('http-router'),
-    routes = new router;
+    routes = router.createRouter();  // or routes = new router;
 
 routes
   .get('/', function(req, res, next) {
-    res.write('Hello,');
+    res.write('Hello, ');
     return next();
   })
   .get('/', function(req, res, next) {
-    res.write(' World');
-    return next();
-  })
-  .get('/', function(req, res, next) {
-    res.end('!\n');
+    res.end('World!\n');
   })
   .post('/', function(req, res, next) {
     res.write('PO');
     return next();
   })
   .post('/', function(req, res, next) {
-    res.write('ST');
-    return next();
-  })
-  .post('/', function(req, res, next) {
-    res.end('!\n');
+    res.end('ST!\n');
   })
   .get('/:key1/:key2', function(req, res, next) {
     res.write('key1: ' + req.params.key1 + '\n');
@@ -48,13 +43,13 @@ routes
     return next();
   })
   .get(function(req, res, next) {
-    res.end(http.STATUS_CODES[404]);
+    res.end(http.STATUS_CODES[404] + '\n');
   });
 
 http.createServer(function(req, res) {
   if (!routes.route(req, res)) {
     res.writeHead(501);
-    res.end(http.STATUS_CODES[501]);
+    res.end(http.STATUS_CODES[501] + '\n');
   }
 }).listen(3000);
 ```
@@ -82,26 +77,33 @@ $ npm test
 
 ## Functions
 
-### route(req, res)
+### http-router#createRouter()
 
-* `req` http.ServerRequest - http server request object
-* `res` http.ServerResponse - http server response object
+* `return` Router - new Router instance.
 
-* `return` boolean - return false if never called handler function.
+Return new Router instance. It's similar to `new require('http-router')`.
 
-Call added HTTP method handler functions. Call handlers for no path if never called handler functions.
+### Router#route(req, res)
 
-### options/get/head/post/put/delete/trace/connect/patch([path], handler)
+* `req` http.IncomingMessage - IncomingMessage object
+* `res` http.ServerResponse - ServerResponse object
+
+* `return` boolean - return false if not called any callback functions.
+
+Call appended callback functions if match to route's path.
+Call empty path's callback if not match to any route's path.
+
+### Router#options/get/head/post/put/delete/trace/connect/patch([path], callback)
 
 * `path` string - request path
-* `handler` function(req, res, next) - handler function
-  * `req` http.ServerRequest - http server request object
-  * `res` http.ServerResponse - http server response object
-  * `next` function() - call next function
+* `callback` function(req, res, next) - callback function
+  * `req` http.IncomingMessage - IncomingMessage object
+  * `res` http.ServerResponse - ServerResponse object
+  * `next` function() - call next callback function
 
-* `return` HttpRouter - return this instance object.
+* `return` Router - return own instance.
 
-Add HTTP method handler function. Add as no path handler if handler parameter only.
+Append path and callback function.
 
 ## License
 
