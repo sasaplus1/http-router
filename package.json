@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "expect.js": "~0.2",
-    "mocha": "~1.12",
+    "mocha": "~1.14",
     "sinon": "~1.7"
   }
 }
