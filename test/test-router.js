@@ -65,6 +65,12 @@ describe('Router', function() {
             .get('/', function(req, res, next) {})
             .route({ method: 'GET', url: '/' }, {})
       ).to.be(true);
+
+      expect(
+          route
+            .get({ path: '/', callback: function(req, res, next) {} })
+            .route({ method: 'GET', url: '/' }, {})
+      ).to.be(true);
     });
 
     it('should be return true if matching route has empty path', function() {
