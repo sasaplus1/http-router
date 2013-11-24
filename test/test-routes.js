@@ -82,6 +82,33 @@ describe('Routes', function() {
       ]);
     });
 
+    it('should be append route (path is object)', function() {
+      route.append({path: '/route1', callback: route1});
+      route.append({path: '/route2', callback: route2});
+      route.append({path: '/route3', callback: route3});
+
+      expect(route.routes_).to.eql([
+        {
+          path: '/route1',
+          callback: route1,
+          paramKeys: undefined,
+          isRegExp: false
+        },
+        {
+          path: '/route2',
+          callback: route2,
+          paramKeys: undefined,
+          isRegExp: false
+        },
+        {
+          path: '/route3',
+          callback: route3,
+          paramKeys: undefined,
+          isRegExp: false
+        }
+      ]);
+    });
+
     it('should be append route (path has placeholder)', function() {
       route.append('/:key1/:param1', route1);
       route.append('/:key2/:param2', route2);
