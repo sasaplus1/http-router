@@ -23,8 +23,11 @@ routes
     res.write('Hello, ');
     return next();
   })
-  .get('/', function(req, res, next) {
-    res.end('World!\n');
+  .get({
+    path: '/',
+    callback: function(req, res, next) {
+      res.end('World!\n');
+    }
   })
   .post('/', function(req, res, next) {
     res.write('PO');
@@ -95,8 +98,8 @@ Call empty path's callback if not match to any route's path.
 
 ### Router#options/get/head/post/put/delete/trace/connect/patch([path], callback)
 
-* `path` string - request path
-* `callback` function(req, res, next) - callback function
+* `path` string|function|object - request path
+* `callback` function(req, res, next)|undefined - callback function
   * `req` http.IncomingMessage - IncomingMessage object
   * `res` http.ServerResponse - ServerResponse object
   * `next` function() - call next callback function
