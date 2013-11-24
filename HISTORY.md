@@ -1,3 +1,8 @@
+# 0.5.0 / 2013-11-24
+
+  - changed to can set object to HTTP functions
+  - updated modules
+
 # 0.4.2 / 2013-08-16
 
   - refactored
